@@ -1,5 +1,10 @@
-import { something } from "./something";
+// import { something } from "./something";
+const { something } = require("./something");
 
-test("something", () => {
+test("rien", () => {
+  expect(true).toBe(true);
+});
+
+test("something ", () => {
   expect(something()).toBe(true);
 });

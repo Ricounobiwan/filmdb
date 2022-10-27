@@ -12,17 +12,17 @@ function createConnection(user, password, database) {
 }
 
 // ================================================================================================
-// SearchAll: lister tous les films
+// DONE - SearchAll: lister tous les films
 // ================================================================================================
 function selectAllMovies(connection, functionToCallWhenDone) {
   connection.query("SELECT * FROM movies", functionToCallWhenDone);
 }
 
 // ================================================================================================
-// SearchCriteria: Endpoint permettant de lister tous les films correspondant à un critère:
+// DONE - SearchCriteria: Endpoint permettant de lister tous les films correspondant à un critère:
 //    selectMoviesByTitle, selectMoviesByYear, selectMoviesByGenre, selectMoviesByActors,
 //    selectMoviesByDirector
-// Title, Year, Genre, Actors, Director
+// Title, ReleaseYear, Genre, Actors, Director
 // ================================================================================================
 function selectMoviesByTitle(connection, title, functionToCallWhenDone) {
   connection.query(
@@ -32,20 +32,94 @@ function selectMoviesByTitle(connection, title, functionToCallWhenDone) {
   );
 }
 
+function selectMoviesByCriteria(
+  connection,
+  fieldToSearch,
+  valueToSearch,
+  functionToCallWhenDone
+) {
+  console.log("fieldToSearch, valueToSearch ", fieldToSearch, valueToSearch);
+
+  connection.query(
+    `SELECT * FROM movies WHERE ${fieldToSearch} = ?`,
+    [valueToSearch],
+    functionToCallWhenDone
+  );
+}
+
 // ================================================================================================
 // insertMovie: Endpoint permettant de créer un film
 // ================================================================================================
-// TODO
+function insertMovie(connection, movieData, functionToCallWhenDone) {
+  const [
+    id,
+    rankIMDb,
+    Title,
+    Genre,
+    ReleaseYear,
+    Plot,
+    ImageURL,
+    VideoURL,
+    Actor1,
+    Actor2,
+    Actor3,
+    Director,
+  ] = movieData;
+  console.log(id, rankIMDb, Title, Genre, ReleaseYear);
+
+  connection.query(
+    "INSERT INTO movies (id, rankIMDb, Title, Genre, ReleaseYear, Plot, ImageURL, VideoURL, Actor1, Actor2, Actor3, Director) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+      id,
+      rankIMDb,
+      Title,
+      Genre,
+      ReleaseYear,
+      Plot,
+      ImageURL,
+      VideoURL,
+      Actor1,
+      Actor2,
+      Actor3,
+      Director,
+    ],
+    functionToCallWhenDone
+  );
+
+  return true;
+}
 
 // ================================================================================================
 // deleteMovie: Endpoint permettant de supprimer un film
 // ================================================================================================
-// TODO
+function DeleteMovieById(connection, movieId, callback) {
+  // Delete the records with address="Delhi"
+  const sql = `DELETE FROM movies WHERE id = ${movieId}; `;
+
+  connection.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("Record deleted = ", result.affectedRows);
+    console.log(result);
+    callback();
+  });
+}
 
 // ================================================================================================
 // updateMovie: Endpoint permettant de modifier un film
 // ================================================================================================
-// TODO
+function UpdateMovieById(
+  connection,
+  MovieIdToUpdate,
+  MovieDataToUpdate,
+  dataForUpdate,
+  functionToCallWhenDone
+) {
+  connection.query(
+    `UPDATE movies SET ${MovieDataToUpdate} = ? WHERE Id = ?;`,
+    [dataForUpdate, MovieIdToUpdate],
+    functionToCallWhenDone
+  );
+}
 
 // ================================================================================================
 // getMovieStats: Endpoint permettant d'obtenir des statistiques sur sa collection de films
@@ -85,21 +159,6 @@ function selectMoviesByTitle(connection, title, functionToCallWhenDone) {
 // //   const query = `UPDATE user set ${fields} `;
 // // }
 
-// function updateUserCity(
-//   connection,
-//   userToUpdate,
-//   dataToUpdate,
-//   dataUpdate,
-//   DataToUpdate,
-//   functionToCallWhenDone
-// ) {
-//   connection.query(
-//     "UPDATE user SET city = ? WHERE id = ?;",
-//     [dataUpdate, userToUpdate],
-//     functionToCallWhenDone
-//   );
-// }
-
 // // compte le nombre d'utilisateurs dans la table user.
 // // D'abord sans une fonction
 // // Fonction: getUserCount, callback
@@ -114,4 +173,8 @@ module.exports = {
   createConnection: createConnection,
   selectAllMovies: selectAllMovies,
   selectMoviesByTitle: selectMoviesByTitle,
+  insertMovie: insertMovie,
+  selectMoviesByCriteria: selectMoviesByCriteria,
+  DeleteMovieById: DeleteMovieById,
+  UpdateMovieById: UpdateMovieById,
 };

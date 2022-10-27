@@ -24,7 +24,21 @@ VALUES('5', '2300', 'Scarface', 'Crime', '1983',
 'https://i.pinimg.com/originals/f1/cc/4b/f1cc4b3bd378c553a5c9b1d78491b1ce.png', 'VideoURL', 
 'Al Pacino', 'Steven Bauer', 'Michelle Pfeiffer', 'Brian De Palma');
 
+# NOT DONE:
+INSERT INTO movies (id, rankIMDb, Title, Genre, ReleaseYear, Plot, ImageURL, VideoURL, Actor1, Actor2, Actor3, Director)  
+VALUES('6', '2300', 'Your Name', 'Comedy', '2016',
+'Two strangers find themselves linked in a bizarre way. When a connection forms, will distance be the only thing to keep them apart?', 
+'https://www.kino.dk/sites/default/files/movie-posters/yournameplakat_0.jpg', 'VideoURL', 
+'Ryûnosuke Kamiki', 'Mone Kamishiraishi', 'Ryô Narita', 'Makoto Shinkai');
 
+INSERT INTO movies (id, rankIMDb, Title, Genre, ReleaseYear, Plot, ImageURL, VideoURL, Actor1, Actor2, Actor3, Director)  
+VALUES('99', '999', 'Dummy', 'Comedy', '2016',
+'Dummy Dummy Dummy', 
+'DummyURL', 'DummyVideoURL', 
+'Ryûnosuke Kamiki', 'Mone Kamishiraishi', 'Ryô Narita', 'Makoto Shinkai');
+
+
+SELECT * from movies;
 
 CREATE TABLE movies (
 	id INT not null primary key,
@@ -44,10 +58,8 @@ CREATE TABLE movies (
 # id, rankIMDb, Title, Genre, ReleaseYear, Plot, ImageURL, VideoURL, Actor1, Actor2, Actor3, Director
 
 
-SELECT * from movies;
-
 UPDATE movies
-SET email = 'Alfred@Schmidt.com'#, City = 'Frankfurt'
-WHERE id = 1;
+SET Title = 'Dummy'  #, City = 'Frankfurt'
+WHERE id = 99;
 
 # ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY “root”;
