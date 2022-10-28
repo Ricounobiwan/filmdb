@@ -1,3 +1,15 @@
+    npm install
+    npm install --save mysql2
+
+
+    1. Installer nodemon :
+      npm i -g nodemon
+    2. Lancer nodemon :
+      nodemon --exec npm start
+
+TODO
+create-react-app .
+
 # Projet FilmDB
 
 Votre objectif est de créer une API permettant de gérer la collection de films que vous avez sur votre ordinateur.

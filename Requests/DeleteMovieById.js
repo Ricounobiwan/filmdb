@@ -1,4 +1,4 @@
-function DeleteMovieById(connection, movieId, callback) {
+function deleteMovieById(connection, movieId, callback) {
   // Delete the records with address="Delhi"
   const sql = `DELETE FROM movies WHERE id = ${movieId}; `;
 
@@ -10,4 +10,4 @@ function DeleteMovieById(connection, movieId, callback) {
   });
 }
 
-module.exports = { DeleteMovieById };
+module.exports = { deleteMovieById };

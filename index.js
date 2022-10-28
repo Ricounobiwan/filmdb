@@ -1,5 +1,5 @@
-// import express from "express";
 const express = require("express");
+const port = 3000;
 const bodyParser = require("body-parser");
 // const url = require("url");
 // const querystring = require("querystring");
@@ -8,7 +8,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const port = 3000;
+const cors = require("cors");
+app.use(cors());
 
 const dbutils = require("./db_utils");
 
@@ -111,9 +112,63 @@ app.get("/api/movies/:movieTitle", (req, res) => {
 });
 
 // ================================================================================================
+// insertMovie with query data: Endpoint permettant de créer un film
+// ================================================================================================
+
+app.get("/new", (req, res) => {
+  const connection = dbutils.createConnection("root", "root", "cinemaDB");
+
+  const parameters = req.query;
+  console.log(
+    "===================================/n PARAMETERS: ",
+    parameters,
+    typeof parameters
+  );
+
+  const movieData = Object.values(parameters);
+  console.log("===================================/n movieData:", movieData);
+
+  // const fieldToSearch = Object.keys(req.query);
+  // const valueToSearch = Object.values(req.query);
+
+  // http://localhost:3000/new?id=8&rankIMDb=2000&Title=Bonjour&Genre=Comedy&ReleaseYear=2016&Plot=DummyPlot&ImageURL=""&VideoURL=""&Actor1="Dummy"&Actor2="Dummy"&Actor3="Dummy3"&Director=Steven Spielberg
+
+  // const movieData = [
+  //   "15",
+  //   "2300",
+  //   "DUMMY Your Name",
+  //   "Comedy",
+  //   "2016",
+  //   "Two strangers find themselves linked in a bizarre way. When a connection forms, will distance be the only thing to keep them apart?",
+  //   "https://www.kino.dk/sites/default/files/movie-posters/yournameplakat_0.jpg",
+  //   "VideoURL",
+  //   "Ryûnosuke Kamiki",
+  //   "Mone Kamishiraishi",
+  //   "Ryô Narita",
+  //   "Makoto Shinkai",
+  // ];
+
+  // TODO const movieData = req.body;
+
+  dbutils.insertMovie(connection, movieData, (err, data) => {
+    if (err) {
+      console.log("Error: ", err);
+    }
+
+    if (data) {
+      if (data.length === 0) {
+        console.log("There should be some moviesData but didn't find any...");
+      }
+    }
+    connection.end();
+    res.send(data);
+  });
+});
+
+// ================================================================================================
 // insertMovie: Endpoint permettant de créer un film
 // ================================================================================================
-// TODO
+// cf /Requests
 app.get("/api/movies/new", (req, res) => {
   const connection = dbutils.createConnection("root", "root", "cinemaDB");
 
@@ -151,12 +206,12 @@ app.get("/api/movies/new", (req, res) => {
 // ================================================================================================
 // deleteMovie: Endpoint permettant de supprimer un film
 // ================================================================================================
-// TODO
+// cf /Requests
 
 // ================================================================================================
 // updateMovie: Endpoint permettant de modifier un film
 // ================================================================================================
-// TODO
+// cf /Requests
 
 // ================================================================================================
 // getMovieStats: Endpoint permettant d'obtenir des statistiques sur sa collection de films
@@ -166,4 +221,4 @@ app.get("/api/movies/new", (req, res) => {
       getMostMoviesPerGenre       Genre le plus et le moins présent
 */
 // ================================================================================================
-// TODO
+// cf /Requests

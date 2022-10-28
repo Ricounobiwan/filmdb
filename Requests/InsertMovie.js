@@ -1,4 +1,4 @@
-function InsertMovie(connection, movieData, functionToCallWhenDone) {
+function insertMovie(connection, movieData, functionToCallWhenDone) {
   const [
     id,
     rankIMDb,
@@ -13,7 +13,7 @@ function InsertMovie(connection, movieData, functionToCallWhenDone) {
     Actor3,
     Director,
   ] = movieData;
-  const sqlString = `INSERT INTO movies (id, rankIMDb, Title, Genre, ReleaseYear, Plot, ImageURL, VideoURL, Actor1, Actor2, Actor3, Director) VALUES(${id}, ${rankIMDb}, ${Title}, ${Genre}, ${ReleaseYear}, ${Plot}, ${ImageURL}, ${VideoURL}, ${Actor1}, ${Actor2}, ${Actor3}, ${Director})`;
+  const sqlString = `INSERT INTO movies (id, rankIMDb, Title, Genre, ReleaseYear, Plot, ImageURL, VideoURL, Actor1, Actor2, Actor3, Director) VALUES('${id}', '${rankIMDb}', '${Title}', '${Genre}', '${ReleaseYear}', '${Plot}', '${ImageURL}', '${VideoURL}', '${Actor1}', '${Actor2}', '${Actor3}', '${Director}');`;
 
   connection.query(sqlString, function (err, result) {
     if (err) throw err;
@@ -24,4 +24,4 @@ function InsertMovie(connection, movieData, functionToCallWhenDone) {
   });
 }
 
-module.exports = { InsertMovie };
+module.exports = { insertMovie };

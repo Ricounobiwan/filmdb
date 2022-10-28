@@ -1,6 +1,6 @@
 // import { something } from "./something";
 const { selectAllMovies } = require("./selectAllMovies");
-const dbutils = require(".././db_utils");
+const dbutils = require("../db_utils");
 const connection = dbutils.createConnection("root", "root", "cinemaDB");
 
 test("Have at least one movie ", () => {

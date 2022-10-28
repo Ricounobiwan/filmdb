@@ -37,8 +37,12 @@ VALUES('99', '999', 'Dummy', 'Comedy', '2016',
 'DummyURL', 'DummyVideoURL', 
 'Ryûnosuke Kamiki', 'Mone Kamishiraishi', 'Ryô Narita', 'Makoto Shinkai');
 
+SELECT COUNT(id) as NbOfMovies, Director FROM movies GROUP BY Director order by COUNT(id);
 
-SELECT * from movies;
+SELECT COUNT(id) as NbOfMovies, Actor1 FROM movies GROUP BY Actor1 order by COUNT(id);
+SELECT COUNT(id) as NbOfMovies, Actor2 FROM movies GROUP BY Actor2 order by COUNT(id);
+
+
 
 CREATE TABLE movies (
 	id INT not null primary key,
@@ -57,9 +61,17 @@ CREATE TABLE movies (
 
 # id, rankIMDb, Title, Genre, ReleaseYear, Plot, ImageURL, VideoURL, Actor1, Actor2, Actor3, Director
 
+# The Age of innocence
+# 
+# Shawshank: 
+# Baker boys: 
 
 UPDATE movies
-SET Title = 'Dummy'  #, City = 'Frankfurt'
-WHERE id = 99;
+SET ImageURL = 'https://originalvintagemovieposters.com/wp-content/uploads/2015/05/Shawshank-Redemption-3205LB.jpg'  
+WHERE id = 3;
+
+
+SELECT * from movies;
+DELETE FROM movies where id=7;
 
 # ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY “root”;

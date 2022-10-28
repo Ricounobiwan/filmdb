@@ -1,4 +1,4 @@
-function UpdateMovieById(
+function updateMovieById(
   connection,
   MovieIdToUpdate,
   MovieDataToUpdate,
@@ -16,4 +16,4 @@ function UpdateMovieById(
   });
 }
 
-module.exports = { UpdateMovieById };
+module.exports = { updateMovieById };

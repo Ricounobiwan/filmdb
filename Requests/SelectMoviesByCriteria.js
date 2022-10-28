@@ -1,4 +1,4 @@
-function SelectMoviesByCriteria(
+function selectMoviesByCriteria(
   connection,
   fieldToSearch,
   valueToSearch,
@@ -17,4 +17,4 @@ function SelectMoviesByCriteria(
   );
 }
 
-module.exports = { SelectMoviesByCriteria };
+module.exports = { selectMoviesByCriteria };

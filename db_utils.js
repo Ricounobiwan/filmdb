@@ -129,7 +129,37 @@ function UpdateMovieById(
       getMostMoviesPerGenre       Genre le plus et le moins présent
 */
 // ================================================================================================
-// TODO
+// the number of customers in each country:
+// SELECT COUNT(CustomerID), Country
+// FROM Customers
+// GROUP BY Country;
+
+function getMovieStats(connection, functionToCallWhenDone) {
+  // getTotalMoviesPerGenre      Nombre total et nombre par genre
+
+  connection.query(
+    `SELECT COUNT(*) as NbOfMovies, Genre FROM movies GROUP BY Genre;`,
+    functionToCallWhenDone
+  );
+
+  connection.query(
+    `SELECT COUNT(id) as NbOfMovies, Director FROM movies GROUP BY Director order by COUNT(id);`,
+    functionToCallWhenDone
+  );
+
+  connection.query(
+    `SELECT COUNT(id) as NbOfMovies, Actor1 FROM movies GROUP BY Actor1 order by COUNT(id);`,
+    functionToCallWhenDone
+  );
+
+  // connection.query(`SELECT count(Genre) FROM movies;`, functionToCallWhenDone);
+
+  // connection.query(
+  //   `SELECT count(Genre) FROM movies;`,
+  //   [dataForUpdate, MovieIdToUpdate],
+  //   functionToCallWhenDone
+  // );
+}
 
 /*
  * ====================================== TODO
@@ -177,4 +207,5 @@ module.exports = {
   selectMoviesByCriteria: selectMoviesByCriteria,
   DeleteMovieById: DeleteMovieById,
   UpdateMovieById: UpdateMovieById,
+  getMovieStats: getMovieStats,
 };
